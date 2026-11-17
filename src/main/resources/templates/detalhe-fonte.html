@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CitizenTech | Pontos da fonte</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/mapas">CitizenTech</a>
+
+        <div class="d-flex flex-wrap gap-3">
+            <a class="text-white" href="/mapas">Estudos</a>
+            <a class="text-white" href="/regioes">Regiões</a>
+            <a class="text-white" href="/fontes">Fontes</a>
+            <a class="text-white" href="/pontos">Pontos</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-5">
+
+    <a th:href="@{/mapas/detalhes/{id}(id=${fonte.idMapa})}"
+       class="btn btn-outline-secondary mb-4">
+        Voltar ao estudo
+    </a>
+
+    <div class="mb-4">
+        <p class="text-secondary mb-1">Fonte de informação</p>
+        <h1 th:text="${fonte.titulo}"></h1>
+
+        <a th:href="@{/fontes/editar/{id}(id=${fonte.idFonte})}"
+           class="btn btn-outline-primary mt-2">
+            Editar fonte
+        </a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h5">Endereço consultado</h2>
+            <p class="text-break mb-0" th:text="${fonte.url}"></p>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="card h-100 border-warning">
+                <div class="card-body">
+                    <h2 class="h5">Pendente</h2>
+                    <p class="mb-0">
+                        O ponto foi registrado e aguarda conferência.
+                        Verifique a localização e as informações
+                        antes de confirmar.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 border-success">
+                <div class="card-body">
+                    <h2 class="h5">Confirmado</h2>
+                    <p class="mb-0">
+                        Um usuário registrou a conferência do ponto.
+                        Ao editar seus dados, ele volta a ficar pendente.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-white">
+            <div class="d-flex flex-wrap justify-content-between
+                        align-items-center gap-3">
+                <div>
+                    <h2 class="h5 mb-1">Pontos identificados nesta fonte</h2>
+                    <p class="text-secondary mb-0">
+                        Consulte os elementos registrados e acompanhe
+                        a verificação de cada um.
+                    </p>
+                </div>
+
+                <a href="/pontos/novo" class="btn btn-primary">
+                    Cadastrar ponto
+                </a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped align-middle mb-0">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Verificação</th>
+                    <th>Observação</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="ponto : ${pontos}">
+                    <td th:text="${ponto.nome}"></td>
+                    <td th:text="${ponto.tipo}"></td>
+                    <td th:text="${ponto.latitude}"></td>
+                    <td th:text="${ponto.longitude}"></td>
+
+                    <td>
+                            <span class="badge text-bg-secondary"
+                                  th:text="${ponto.statusVerificacao}">
+                            </span>
+                    </td>
+
+                    <td th:text="${ponto.observacao}"></td>
+
+                    <td>
+                        <a th:href="@{/pontos/editar/{id}(id=${ponto.idPonto})}"
+                           class="btn btn-outline-secondary btn-sm">
+                            Editar
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer bg-white">
+            <p class="text-secondary mb-2">
+                Ao cadastrar um ponto, selecione esta fonte no formulário.
+            </p>
+
+            <a href="/pontos" class="btn btn-outline-primary btn-sm">
+                Abrir painel de verificação
+            </a>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>

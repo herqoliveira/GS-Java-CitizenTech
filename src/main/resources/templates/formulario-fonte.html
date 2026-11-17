@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CitizenTech | Formulário de fonte</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/mapas">CitizenTech</a>
+
+        <div class="d-flex flex-wrap gap-3">
+            <a class="text-white" href="/mapas">Estudos</a>
+            <a class="text-white" href="/regioes">Regiões</a>
+            <a class="text-white" href="/fontes">Fontes</a>
+            <a class="text-white" href="/pontos">Pontos</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-5">
+
+    <a href="/fontes" class="btn btn-outline-secondary mb-4">
+        Voltar às fontes
+    </a>
+
+    <div class="mb-4">
+        <h1 th:text="${acao} == null ? 'Cadastrar fonte' : 'Editar fonte'">
+        </h1>
+
+        <p class="text-secondary">
+            Registre a origem das informações e selecione
+            o estudo ao qual elas pertencem.
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h2 class="h5 mb-0">Informações da fonte</h2>
+                </div>
+
+                <div class="card-body">
+                    <form th:action="${acao} == null ? '/fontes' : ${acao}"
+                          method="post">
+
+                        <div class="mb-4">
+                            <label for="idMapa" class="form-label">
+                                Estudo vinculado
+                            </label>
+
+                            <select id="idMapa"
+                                    name="idMapa"
+                                    class="form-select"
+                                    required>
+                                <option value="">Selecione um estudo</option>
+
+                                <option th:each="mapa : ${mapas}"
+                                        th:value="${mapa.idMapa}"
+                                        th:text="${mapa.titulo}"
+                                        th:selected="${acao} != null ? ${mapa.idMapa == fonte.idMapa} : false">
+                                </option>
+                            </select>
+
+                            <div class="form-text">
+                                Os pontos desta fonte ficarão associados
+                                ao estudo selecionado.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="titulo" class="form-label">
+                                Nome da fonte
+                            </label>
+
+                            <input id="titulo"
+                                   name="titulo"
+                                   type="text"
+                                   class="form-control"
+                                   maxlength="150"
+                                   placeholder="Ex.: Levantamento de arborização da prefeitura"
+                                   th:value="${acao} != null ? ${fonte.titulo} : ''"
+                                   required>
+
+                            <div class="form-text">
+                                Escolha um nome que identifique
+                                o material consultado.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="url" class="form-label">
+                                Endereço do material
+                            </label>
+
+                            <input id="url"
+                                   name="url"
+                                   type="url"
+                                   class="form-control"
+                                   maxlength="2048"
+                                   placeholder="https://..."
+                                   th:value="${acao} != null ? ${fonte.url} : ''"
+                                   required>
+
+                            <div class="form-text">
+                                Informe a URL da página, imagem
+                                ou documento utilizado no levantamento.
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="submit"
+                                    class="btn btn-primary"
+                                    th:text="${acao} == null ? 'Cadastrar fonte' : 'Salvar alterações'">
+                            </button>
+
+                            <a href="/fontes"
+                               class="btn btn-outline-secondary">
+                                Cancelar
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h5">Mantenha a origem identificada</h2>
+
+                    <p>
+                        Uma fonte pode ser uma imagem aérea,
+                        um documento compartilhado ou uma página
+                        de dados públicos.
+                    </p>
+
+                    <p>
+                        Ao cadastrar um ponto, selecione a fonte
+                        usada para identificá-lo.
+                    </p>
+
+                    <p class="text-secondary mb-0">
+                        Na edição, alterar o estudo vinculado também
+                        muda o estudo ao qual os pontos desta fonte
+                        pertencem.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>
