@@ -17,8 +17,10 @@
 - **Drone com LiDAR:** realiza a coleta de dados topográficos do local.
 - **Agente de IA:** auxilia no processamento e na organização dos dados para gerar materiais de apoio aos arquitetos, sujeitos à revisão profissional.
 
-**Link do repositório 1:** [GS-Java-CitizenTech](https://github.com/herqoliveira/GS-Java-CitizenTech).
-**Link do repositório 2:** [CitizenTech](https://github.com/herqoliveira/CitizenTech).
+- **Link do repositório 1:** [GS-Java-CitizenTech](https://github.com/herqoliveira/GS-Java-CitizenTech).
+- **-> Hospedagem: https://gs-java-citizentech.onrender.com**
+- **Link do repositório 2:** [CitizenTech](https://github.com/herqoliveira/CitizenTech).
+- **-> Hospedagem: https://herqoliveira.github.io/CitizenTech/#/painel**
 
 **Indicador de impacto:** Redução do tempo necessário para coletar e organizar informações de uma região, comparando levantamentos de escopo equivalente realizados pelo processo habitual e com o Architect Drone.
 
